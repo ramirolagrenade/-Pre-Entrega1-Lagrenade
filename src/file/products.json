@@ -1,0 +1,42 @@
+[
+	{
+		"title": "Play 5",
+		"description": "Vamo a jugar",
+		"code": 123,
+		"price": 2000,
+		"stock": 10,
+		"category":"Console",
+		"thumbnail": "-----",
+		"id": 1
+	},
+	{
+		"title": "Play 4",
+		"description": "Vamo a jugar",
+		"code": 456,
+		"price": 1000,
+		"stock": 7,
+		"category":"Console",
+		"thumbnail": "-----",
+		"id": 2
+	},
+	{
+		"title": "Play 3",
+		"description": "Vamo a jugar",
+		"code": 789,
+		"price": 500,
+		"stock": 10,
+		"category":"Console",
+		"thumbnail": "-----",
+		"id": 3
+	},
+	{
+		"title": "Play 2",
+		"description": "Vamo a jugar",
+		"code": 258,
+		"price": 300,
+		"stock": 10,
+		"category":"Console",
+		"thumbnail": "-----",
+		"id": 4
+	}
+]
