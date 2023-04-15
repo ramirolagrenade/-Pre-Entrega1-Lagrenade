@@ -91,7 +91,6 @@ export default class ProductManager{
         try {
             let products = await this.getProducts()
             let productIndex = products.findIndex(p => p.id == id)
-            console.log(productIndex);
             if (productIndex === -1) return false
             products.splice(productIndex, 1)
             await fs.promises.writeFile(this.path, JSON.stringify(products, null, '\t'))
@@ -103,7 +102,7 @@ export default class ProductManager{
 
     updateProduct = async (IdProducto, data) => {
         try {
-            let products = await this.getProducts();
+            let products = await this.getProducts()
 
             let productToUpdate = products.filter(producto => producto.id == IdProducto)
             let newProduct = productToUpdate[0]

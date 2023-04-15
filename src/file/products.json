@@ -1,22 +1,43 @@
 [
 	{
+		"title": "Play 22",
+		"description": "Vamo a jugarrrrrr",
+		"code": 123,
+		"price": 2000,
+		"Status":true,
+		"stock": 10,
+		"category":"Console",
+		"thumbnail": "-----",
+		"id": 1
+	},
+	{
+		"title": "Play 4",
+		"description": "Vamo a jugar",
+		"code": 456,
+		"price": 1000,
+		"Status":true,
+		"stock": 7,
+		"thumbnail": "-----",
+		"id": 2
+	},
+	{
 		"title": "Play 3",
 		"description": "Vamo a jugar",
 		"code": 789,
 		"price": 500,
+		"Status":true,
 		"stock": 10,
-		"category": "Console",
 		"thumbnail": "-----",
-		"id": 2
+		"id": 3
 	},
 	{
 		"title": "Play 2",
 		"description": "Vamo a jugar",
 		"code": 258,
 		"price": 300,
+		"Status":true,
 		"stock": 10,
-		"category": "Console",
 		"thumbnail": "-----",
-		"id": 3
+		"id": 4
 	}
 ]
