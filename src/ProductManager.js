@@ -1,3 +1,4 @@
+import { log } from "console"
 import fs from "fs"
 
 export default class ProductManager{
@@ -20,12 +21,12 @@ export default class ProductManager{
 
     validarDatos(productos) {
         if (productos.thumbnail === undefined) {
-            productos.thumbnail === '???'
+            productos.thumbnail = '???'
         }
         let verificacion = Object.values(productos)
         if (!verificacion.includes(undefined)) {
             if (productos.thumbnail === '???') {
-                productos.thumbnail === undefined
+                productos.thumbnail = undefined
             }
             return true
         }
@@ -52,6 +53,7 @@ export default class ProductManager{
             id: idProducto + 1
         }
 
+        console.log(this.validarDatos(productos))
         if (this.validarDatos(productos)) {
 
             let producto_code = productos.code
@@ -67,18 +69,20 @@ export default class ProductManager{
                 return 'Producto Creado.'
 
             } else {
-                return res.status(400).send({
-                    status: "error",
-                    error: "Codigo ya registrado."
-                })
+                return console.log('Error, codigo repe')
+                // res.status(400).send({
+                //     status: "error",
+                //     error: "Codigo ya registrado."
+                // })
             }
 
         }
         else {
-            return res.status(400).send({
-                status: "error",
-                error: "Valores Incompletos."
-            })
+                return console.log('Error, Datos faltantes')
+            //  res.status(400).send({
+            //     status: "error",
+            //     error: "Valores Incompletos."
+            // })
         }
 
     }
@@ -86,31 +90,46 @@ export default class ProductManager{
     deleteProduct = async (id) => {
         try {
             let products = await this.getProducts()
-            let productIndex = products.findIndex(p => p.id === id)
-            if (productIndex === -1) return `Product with id: ${id} not found`
-            let productDeleted = products.splice(productIndex, 1)
+            let productIndex = products.findIndex(p => p.id == id)
+            console.log(productIndex);
+            if (productIndex === -1) return false
+            products.splice(productIndex, 1)
             await fs.promises.writeFile(this.path, JSON.stringify(products, null, '\t'))
-            return productDeleted[0]
+            return true
         } catch (error) {
-            return error
+            return false
         }
     }
 
     updateProduct = async (IdProducto, data) => {
         try {
-            let products = await this.getProducts()
+            let products = await this.getProducts();
 
-            let productIndex = products.findIndex(producto => producto.id === IdProducto)
+            let productToUpdate = products.filter(producto => producto.id == IdProducto)
+            let newProduct = productToUpdate[0]
 
-            if (productIndex === -1) return error
+            if (!productToUpdate.length) return false
 
-            products.splice(productIndex, 1, { id: IdProducto, ...data })
+            const keys = Object.keys(data)
+            const values = Object.values(data)
+            const newKeys = Object.keys(newProduct)
+
+            for (let i = 0; i < keys.length; i++) {
+                for(let j = 0; j < newKeys.length; j++){
+                    if (newKeys[j] == keys[i]) {
+                        newProduct[newKeys[j]] = values[i]
+                    }
+                }
+            }
+
+            products.splice(IdProducto-1 , 1, newProduct)
+
             await fs.promises.writeFile(this.path, JSON.stringify(products, null, '\t'))
 
-            return products[productIndex]
+            return true
 
         } catch (error) {
-            return error
+            return false
         }
     }
 }

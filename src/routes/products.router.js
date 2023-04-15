@@ -58,7 +58,7 @@ router.get('/:pid', async (req, res) => {
 router.post('/', async (req, res) => {
     const { title,description,code,price,stock,category,thumbnails } = req.body
 
-    let nuevoProducto = ''
+    let nuevoProducto 
 
     const newProduct = {
         title,
@@ -70,23 +70,30 @@ router.post('/', async (req, res) => {
         thumbnails
     }
 
-    nuevoProducto = productManager.addProduct(newProduct)
+    nuevoProducto = await productManager.addProduct(newProduct)
 
-    res.status(200).send({
-        status: 'success',
-        nuevoProducto
-    })
+    if(nuevoProducto){
+        res.status(200).send({
+            status: 'success',
+            nuevoProducto
+        })
+    }else{
+        return res.status(400).send({
+            status: "error",
+            error: "Valores Incompletos."
+        })
+    }
 
 })
 
-router.put('/:pid', (req, res) => {
+router.put('/:pid',async (req, res) => {
     const pid = req.params.pid
 
-    const data = req.body.data
+    const data = req.body
 
-    let comp = productManager.updateProduct(pid,data)
+    let comp = await productManager.updateProduct(pid,data)
 
-    if (comp == error){
+    if (comp == false){
         res.status(400).send({
             status:'Error',
             error: 'El id o Propiedad son incorrecto.'
@@ -95,7 +102,7 @@ router.put('/:pid', (req, res) => {
     else{
         res.status(200).send({
             status: 'success',
-            msg: `El Producto con id: ${pid} a sido Modificado.`
+            msg: `El Producto con id: ${pid} ha sido Modificado.`
         })
     }
 
@@ -106,7 +113,7 @@ router.delete('/:pid', async (req, res) =>{
 
     let comp = productManager.deleteProduct(pid)
 
-    if (comp == error){
+    if (comp == false){
         res.status(400).send({
             status:'Error',
             error: 'El id es incorrecto.'
