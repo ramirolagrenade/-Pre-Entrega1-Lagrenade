@@ -1,11 +1,11 @@
-import { log } from "console"
 import fs from "fs"
 
 export default class ProductManager{
 
     constructor(){
-        this.path = './file/products.json'
+        this.path = './../src/file/products.json'
     }
+    
 
     getProducts = async () => {
 

@@ -3,16 +3,16 @@ import fs from "fs"
 export default class CartManager{
 
     constructor() {
-        this.path = './file/carts.json'
+        this.path = './src/files/products.json'
     }
 
     addProductInCart = async (cid, pid) => {
         const carritos = await this.getCarts()
-        const carritoFiltrado = carritos.find((cart) => { cart.id == cid })
+        const carritoFiltrado = carritos.find((cart) => cart.id == cid )
 
         let productInCart = carritoFiltrado.products
 
-        const productoIndex = productInCart.findIndex((prod) => { prod.id == pid })
+        const productoIndex = productInCart.findIndex((prod) => prod.id == pid)
 
         if (productoIndex !== -1) {
             productInCart[productoIndex].quantity = productInCart[productoIndex].quantity + 1

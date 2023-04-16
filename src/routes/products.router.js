@@ -1,9 +1,9 @@
 import { Router } from "express"
-import ProductManager from "../ProductManager.js"
+import ProductManager from "../manager/ProductManager.js"
 
 const router = Router()
 
-const productManager = new ProductManager('../file/product.json')
+const productManager = new ProductManager('./../src/file/products.json')
 
 router.get('/', async (req, res) => {
     const products = await productManager.getProducts()
@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
         })
     }
     else {
-        let productos = []
+        let productos = 25
 
         for (let i = 0; i < limit; i++) {
             productos.push(products[i])
@@ -47,7 +47,7 @@ router.get('/:pid', async (req, res) => {
 
     if (!producto) {
         return res.status(400).send({
-            error: 'Usuario no encontrado.'
+            error: 'Producto no encontrado.'
         })
     }
 
@@ -87,7 +87,7 @@ router.post('/', async (req, res) => {
 })
 
 router.put('/:pid',async (req, res) => {
-    const pid = req.params.pid
+    const pid = Number (req.params.pid)
 
     const data = req.body
 
